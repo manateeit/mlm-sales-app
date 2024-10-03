@@ -9,8 +9,11 @@ module.exports = {
     "./app.vue",
     './node_modules/flowbite/**/*.js',
   ],
+  darkMode: 'class', // Enable class-based dark mode
   theme: {
-    extend: {},
+    extend: {
+      // You can add custom theme extensions here if needed
+    },
   },
   plugins: [
     require('flowbite/plugin')
