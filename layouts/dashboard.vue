@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'dark': isDarkMode }" class="h-screen">
+  <div class="h-screen">
     <div class="flex h-full bg-gray-100 dark:bg-gray-900">
       <!-- Sidebar (Collapsible) -->
       <aside :class="isCollapsed ? 'w-20' : 'w-64'" class="bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all duration-300 flex flex-col justify-between">
@@ -52,7 +52,7 @@
                 <a @click="setPage('profile')" class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer">
                   <!-- Profile Icon -->
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-3">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0118 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                   </svg>
                   <span v-if="!isCollapsed">Profile</span>
                 </a>
@@ -61,36 +61,46 @@
           </nav>
         </div>
         
-        <!-- Toggle Mode (New) -->
+        <!-- Logout (New) -->
         <div class="mt-auto mb-4">
-          <a @click="toggleDarkMode" class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer">
+          <button @click="logout" class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer w-full" aria-label="Logout">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25a.75.75 0 0 0-.75-.75h-9a.75.75 0 0 0-.75.75v13.5c0 .414.336.75.75.75h9a.75.75 0 0 0 .75-.75V15M19.5 12h-6m6 0-2.25-2.25m2.25 2.25-2.25 2.25" />
+            </svg>
+            <span v-if="!isCollapsed">Logout</span>
+          </button>
+        </div>
+
+        <!-- Toggle Mode (Existing) -->
+        <div class="mb-4">
+          <button @click="toggleColorMode" class="flex items-center p-2 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer w-full" aria-label="Toggle dark mode">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-3">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
             </svg>
             <span v-if="!isCollapsed">Toggle Mode</span>
-          </a>
+          </button>
         </div>
       </aside>
 
       <!-- Main content -->
       <div class="flex-1 flex flex-col">
-        <!-- Top navbar -->
+        <!-- Top navbar (Corrected) -->
         <header class="bg-white dark:bg-gray-800 p-4 flex justify-between items-center">
+          <!-- Page Title (Left) -->
           <h1 class="text-lg font-semibold text-gray-900 dark:text-white">{{ currentPageTitle }}</h1>
+          
+          <!-- User Avatar and Name (Right) -->
           <div class="flex items-center space-x-4">
-            <button class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white p-2 rounded-full focus:outline-none">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </button>
-            <img src="https://via.placeholder.com/40" class="rounded-full w-10 h-10">
+            <!-- Sample Avatar Icon from Heroicons -->
+            <svg class="w-10 h-10 text-gray-400 dark:text-gray-200" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            <!-- User Name -->
+            <span class="text-gray-900 dark:text-white font-semibold">John Doe</span>
           </div>
-        </header>
-
-        <!-- Dashboard content -->
-        <main class="flex-1 p-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-          <h2 class="text-2xl">Sample Content for {{ currentPageTitle }}</h2>
-          <p>This is just a placeholder for your main content area.</p>
+        </header>        <!-- Dashboard content -->
+        <main class="flex-1 p-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white overflow-auto">
+          <slot />
         </main>
       </div>
     </div>
@@ -100,9 +110,10 @@
 <script setup>
 import { ref, computed } from 'vue'
 
+const colorMode = useColorMode()
+
 const isCollapsed = ref(false)
 const currentPage = ref('dashboard')
-const isDarkMode = ref(false)
 
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value
@@ -112,8 +123,13 @@ const setPage = (page) => {
   currentPage.value = page
 }
 
-const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value
+const toggleColorMode = () => {
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+}
+
+const logout = () => {
+  // Implement your logout logic here
+  // For example, clear user session, redirect to login page, etc.
 }
 
 const currentPageTitle = computed(() => {
@@ -131,9 +147,3 @@ const currentPageTitle = computed(() => {
   }
 })
 </script>
-
-<style>
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-</style>
